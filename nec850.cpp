@@ -6322,7 +6322,7 @@ public:
 	virtual vector<uint32_t> GetCalleeSavedRegisters() override
 	{
 		return vector<uint32_t>{
-			NEC_REG_R25, NEC_REG_R25, NEC_REG_R27, NEC_REG_R28, NEC_REG_EP, NEC_REG_LP};
+			NEC_REG_R25, NEC_REG_R26, NEC_REG_R27, NEC_REG_R28, NEC_REG_R29, NEC_REG_EP, NEC_REG_LP};
 	}
 };
 extern "C"
