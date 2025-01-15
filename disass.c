@@ -43,6 +43,24 @@ const disass_insn_t instruction_list[] = {
     { "loop"   , N850_LOOP    ,    4, 0x6FFFFFF  , 0x6E00001  , 2,   OP_TYPE_LOOP, COND_NZ, {{0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000fffe,  0,  0,  0, 16, UNSIGNED, 1, TYPE_LOOP}, {0}, {0}, {0}}},
     { "rie"   , N850_RIE ,    2, 0x0040    , 0x0040       , 0,   OP_TYPE_CMP, COND_NV, {{0}, {0}, {0}, {0}, {0}}},
     
+    // Long jump instructions                              V- Cond Code
+    { "bge"   , N850_BGE_L     ,    4, 0x07feffff    , 0x07EE0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bgt"   , N850_BGT_L     ,    4, 0x07ffffff    , 0x07EF0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "ble"   , N850_BLE_L     ,    4, 0x07f7ffff    , 0x07E70001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "blt"   , N850_BLT_L     ,    4, 0x07f6ffff    , 0x07E60001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bh"   , N850_BH_L     ,    4, 0x07fbffff     , 0x07Eb0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bl"   , N850_BL_L     ,    4, 0x07f1ffff     , 0x07E10001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bnh"   , N850_BNH_L     ,    4, 0x07f3ffff    , 0x07E30001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bnl"   , N850_BNL_L     ,    4, 0x07f9ffff    , 0x07E90001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "be"   , N850_BE_L     ,    4, 0x07f2ffff     , 0x07E20001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bne"   , N850_BNE_L     ,    4, 0x07faffff    , 0x07Ea0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bn"   , N850_BN_L     ,    4, 0x07f4ffff     , 0x07E40001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bnv"   , N850_BNV_L     ,    4, 0x07f8ffff    , 0x07E80001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bp"   , N850_BP_L     ,    4, 0x07fcffff     , 0x07Ec0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "br"   , N850_BR_L     ,    4, 0x07f5ffff     , 0x07E50001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bsa"   , N850_BSA_L     ,    4, 0x07fdffff    , 0x07Ed0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bv"   , N850_BV_L     ,    4, 0x07f0ffff     , 0x07E00001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+
     // 6-byte insturctions
     { "mov"   , N850_MOVI     ,    6, 0x63fffffffff  , 0x62000000000  , 2,   OP_TYPE_MOV, COND_NV, {{0xffff0000,  16,  0,  0, 16, UNSIGNED, 0, TYPE_IMM}, {0xffff,  0,  16,  0, 16, UNSIGNED, 0, TYPE_IMM},{0x001f00000000,  32,  0,  0, 5, UNSIGNED, 1, TYPE_REG},  {0}, {0}}},
     { "jr"   , N850_JRL     ,    6, 0x2e0fffeffff    , 0x2e000000000      , 1,   OP_TYPE_JMP, COND_NV, {{0}, {0xffff0000,  16,  0,  0, 16, UNSIGNED, 0, TYPE_JMP}, {0xffff,  0,  16,  0, 16, UNSIGNED, 0, TYPE_JMP}, {0}, {0}}},

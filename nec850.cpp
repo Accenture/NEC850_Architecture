@@ -1065,6 +1065,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BGE:
+			case N850_BGE_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1092,6 +1093,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BGT:
+			case N850_BGT_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1119,6 +1121,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BLE:
+			case N850_BLE_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1146,6 +1149,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BLT:
+			case N850_BLT_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1173,6 +1177,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BH:
+			case N850_BH_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1200,6 +1205,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BL:
+			case N850_BL_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1227,6 +1233,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BNH:
+			case N850_BNH_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1254,6 +1261,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BNL:
+			case N850_BNL_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1281,6 +1289,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BE:
+			case N850_BE_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1309,6 +1318,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BNE:
+			case N850_BNE_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1363,6 +1373,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BN:
+			case N850_BN_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1417,6 +1428,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BNV:
+			case N850_BNV_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1471,6 +1483,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BP:
+			case N850_BP_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1498,11 +1511,13 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BR:
+			case N850_BR_L:
 			{
 				il.AddInstruction(il.Jump(il.ConstPointer(4,(insn->fields[0].value + addr) & 0xFFFFFFFF)));
 			}
 			break;
 			case N850_BSA:
+			case N850_BSA_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);
@@ -1530,6 +1545,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			}
 			break;
 			case N850_BV:
+			case N850_BV_L:
 			{
 				// True branch
 				true_label = il.GetLabelForAddress(this, insn->fields[0].value);

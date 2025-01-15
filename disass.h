@@ -219,7 +219,23 @@ enum insn_id {
     N850_STHL,
     N850_STWL,
     N850_RIE,
-    N850_SHRR
+    N850_SHRR,
+    N850_BL_L,
+    N850_BGE_L,
+    N850_BGT_L,
+    N850_BLE_L,
+    N850_BLT_L,
+    N850_BH_L,
+    N850_BNH_L,
+    N850_BNL_L,
+    N850_BE_L,
+    N850_BNE_L,
+    N850_BN_L,
+    N850_BNV_L,
+    N850_BP_L,
+    N850_BR_L,
+    N850_BSA_L,
+    N850_BV_L
 
 };
 
