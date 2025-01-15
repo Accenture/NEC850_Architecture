@@ -2674,7 +2674,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 				);
 				for (int i = 0; i < 12; i++)
 				{
-					if (((0x800 >> i) & insn->fields[0].value) == (0x800 >> i)) {
+					if (((0x800 >> i) & insn->fields[1].value) == (0x800 >> i)) {
 						il.AddInstruction(
 							il.SetRegister(
 								4,
@@ -2686,27 +2686,31 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 						);
 					}
 				}
+				il.AddInstruction(
+					il.SetRegister(
+						4,
+						NEC_REG_SP,
+						il.Add(
+							4,
+							il.Register(4, NEC_REG_SP),
+							il.Const(
+								4,
+								insn->fields[0].value
+							)
+						)
+						
+					)
+				);
 				
 			}
 			break;
 			case N850_DISPOSER:
 			{
-				il.SetRegister(
-					4,
-					NEC_REG_SP,
-					il.Add(
-						4,
-						il.Register(4, NEC_REG_SP),
-						il.Const(
-							4,
-							insn->fields[1].value
-						)
-					)
-					
-				);
-				for (int i = 0; i < 12; i++)
+				
+				
+				for (int i = 11; i >= 0; i--)
 				{
-					if (((0x800 >> i) & insn->fields[0].value) == (0x800 >> i)) {
+					if (((0x800 >> i) & insn->fields[1].value) == (0x800 >> i)) {
 						il.AddInstruction(
 							il.SetRegister(
 								4,
@@ -2718,6 +2722,21 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 						);
 					}
 				}
+				il.AddInstruction(
+					il.SetRegister(
+						4,
+						NEC_REG_SP,
+						il.Add(
+							4,
+							il.Register(4, NEC_REG_SP),
+							il.Const(
+								4,
+								insn->fields[0].value
+							)
+						)
+						
+					)
+				);
 				il.AddInstruction(
 					il.Return(
 						this->get_reg(il,insn->fields[2].value,4)
@@ -4153,19 +4172,22 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 						);
 					}
 				}
-				il.SetRegister(
-					4,
-					NEC_REG_SP,
-					il.Sub(
+				il.AddInstruction(
+					il.SetRegister(
 						4,
-						il.Register(4, NEC_REG_SP),
-						il.Const(
+						NEC_REG_SP,
+						il.Sub(
 							4,
-							insn->fields[1].value
+							il.Register(4, NEC_REG_SP),
+							il.Const(
+								4,
+								insn->fields[1].value
+							)
 						)
+						
 					)
-					
 				);
+				
 				// TODO need some example to verify
 			}
 			break;
