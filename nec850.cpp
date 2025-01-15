@@ -2659,18 +2659,20 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 			break;
 			case N850_DISPOSE:
 			{
-				il.SetRegister(
-					4,
-					NEC_REG_SP,
-					il.Add(
+				il.AddInstruction(
+					il.SetRegister(
 						4,
-						il.Register(4, NEC_REG_SP),
-						il.Const(
+						NEC_REG_SP,
+						il.Add(
 							4,
-							insn->fields[1].value
+							il.Register(4, NEC_REG_SP),
+							il.Const(
+								4,
+								insn->fields[0].value * 4
+							)
 						)
+						
 					)
-					
 				);
 				for (int i = 0; i < 12; i++)
 				{
@@ -2686,6 +2688,13 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 						);
 					}
 				}
+				
+				
+			}
+			break;
+			case N850_DISPOSER:
+			{
+				
 				il.AddInstruction(
 					il.SetRegister(
 						4,
@@ -2695,19 +2704,12 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 							il.Register(4, NEC_REG_SP),
 							il.Const(
 								4,
-								insn->fields[0].value
+								insn->fields[0].value * 4
 							)
 						)
 						
 					)
 				);
-				
-			}
-			break;
-			case N850_DISPOSER:
-			{
-				
-				
 				for (int i = 11; i >= 0; i--)
 				{
 					if (((0x800 >> i) & insn->fields[1].value) == (0x800 >> i)) {
@@ -2722,21 +2724,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 						);
 					}
 				}
-				il.AddInstruction(
-					il.SetRegister(
-						4,
-						NEC_REG_SP,
-						il.Add(
-							4,
-							il.Register(4, NEC_REG_SP),
-							il.Const(
-								4,
-								insn->fields[0].value
-							)
-						)
-						
-					)
-				);
+				
 				il.AddInstruction(
 					il.Return(
 						this->get_reg(il,insn->fields[2].value,4)
@@ -4181,7 +4169,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 							il.Register(4, NEC_REG_SP),
 							il.Const(
 								4,
-								insn->fields[1].value
+								insn->fields[1].value * 4
 							)
 						)
 						
