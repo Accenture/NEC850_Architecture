@@ -567,6 +567,8 @@ public:
 			return RegisterInfo(NEC_REG_R27, 0, 4);
 		case NEC_REG_R28:
 			return RegisterInfo(NEC_REG_R28, 0, 4);
+		case NEC_REG_R29:
+			return RegisterInfo(NEC_REG_R29, 0, 4);
 		case NEC_REG_EP:
 			return RegisterInfo(NEC_REG_EP, 0, 4);
 		case NEC_REG_LP:
