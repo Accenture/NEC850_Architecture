@@ -4790,7 +4790,7 @@ virtual std::string GetIntrinsicName (uint32_t intrinsic) override {
 					il.SetRegister(
 						4,
 						insn->fields[1].value,
-						il.ShiftLeft(
+						il.LogicalShiftRight(
 							4,
 							this->get_reg(il,insn->fields[1].value,4),
 							il.ZeroExtend(
