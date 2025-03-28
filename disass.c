@@ -42,24 +42,26 @@ const disass_insn_t instruction_list[] = {
     { "cvtf.ws"   , N850_CVTFWS     ,    4, 0xFFE0FC42  , 0x07E00442 , 2,   OP_TYPE_MOV, COND_NV, {{0x0000f800,  11,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0xf8000000,  27,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0}, {0}, {0}}},
     { "loop"   , N850_LOOP    ,    4, 0x6FFFFFF  , 0x6E00001  , 2,   OP_TYPE_LOOP, COND_NZ, {{0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000fffe,  0,  0,  0, 16, UNSIGNED, 1, TYPE_LOOP}, {0}, {0}, {0}}},
     { "rie"   , N850_RIE ,    2, 0x0040    , 0x0040       , 0,   OP_TYPE_CMP, COND_NV, {{0}, {0}, {0}, {0}, {0}}},
+    { "mulhi"   , N850_MULHI     ,    4, 0xfeffffff  , 0x6e00000  , 3,   OP_TYPE_MUL, COND_NV, {{0xF8000000,  27,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x0000FFFF,  0,  0,  0, 16, UNSIGNED, 0, TYPE_IMM}, {0}, {0}}},
+
     
     // Long jump instructions                              V- Cond Code
-    { "bge"   , N850_BGE_L     ,    4, 0x07feffff    , 0x07EE0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bgt"   , N850_BGT_L     ,    4, 0x07ffffff    , 0x07EF0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "ble"   , N850_BLE_L     ,    4, 0x07f7ffff    , 0x07E70001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "blt"   , N850_BLT_L     ,    4, 0x07f6ffff    , 0x07E60001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bh"   , N850_BH_L     ,    4, 0x07fbffff     , 0x07Eb0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bl"   , N850_BL_L     ,    4, 0x07f1ffff     , 0x07E10001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bnh"   , N850_BNH_L     ,    4, 0x07f3ffff    , 0x07E30001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bnl"   , N850_BNL_L     ,    4, 0x07f9ffff    , 0x07E90001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "be"   , N850_BE_L     ,    4, 0x07f2ffff     , 0x07E20001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bne"   , N850_BNE_L     ,    4, 0x07faffff    , 0x07Ea0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bn"   , N850_BN_L     ,    4, 0x07f4ffff     , 0x07E40001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bnv"   , N850_BNV_L     ,    4, 0x07f8ffff    , 0x07E80001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bp"   , N850_BP_L     ,    4, 0x07fcffff     , 0x07Ec0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "br"   , N850_BR_L     ,    4, 0x07f5ffff     , 0x07E50001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bsa"   , N850_BSA_L     ,    4, 0x07fdffff    , 0x07Ed0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
-    { "bv"   , N850_BV_L     ,    4, 0x07f0ffff     , 0x07E00001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  20,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bge"   , N850_BGE_L     ,    4, 0x07feffff    , 0x07EE0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bgt"   , N850_BGT_L     ,    4, 0x07ffffff    , 0x07EF0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "ble"   , N850_BLE_L     ,    4, 0x07f7ffff    , 0x07E70001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "blt"   , N850_BLT_L     ,    4, 0x07f6ffff    , 0x07E60001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bh"   , N850_BH_L     ,    4, 0x07fbffff     , 0x07Eb0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bl"   , N850_BL_L     ,    4, 0x07f1ffff     , 0x07E10001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bnh"   , N850_BNH_L     ,    4, 0x07f3ffff    , 0x07E30001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bnl"   , N850_BNL_L     ,    4, 0x07f9ffff    , 0x07E90001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "be"   , N850_BE_L     ,    4, 0x07f2ffff     , 0x07E20001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bne"   , N850_BNE_L     ,    4, 0x07faffff    , 0x07Ea0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bn"   , N850_BN_L     ,    4, 0x07f4ffff     , 0x07E40001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bnv"   , N850_BNV_L     ,    4, 0x07f8ffff    , 0x07E80001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bp"   , N850_BP_L     ,    4, 0x07fcffff     , 0x07Ec0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "br"   , N850_BR_L     ,    4, 0x07f5ffff     , 0x07E50001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bsa"   , N850_BSA_L     ,    4, 0x07fdffff    , 0x07Ed0001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
+    { "bv"   , N850_BV_L     ,    4, 0x07f0ffff     , 0x07E00001       , 1,   OP_TYPE_CJMP, COND_L, {{0xfffe,  0,  0,  0, 16, SIGNED, 0, TYPE_JMP}, {0x100000,  4,  0,  0, 1, SIGNED, 0, TYPE_JMP}, {0}, {0}, {0}}},
 
     // 6-byte insturctions
     { "mov"   , N850_MOVI     ,    6, 0x63fffffffff  , 0x62000000000  , 2,   OP_TYPE_MOV, COND_NV, {{0xffff0000,  16,  0,  0, 16, UNSIGNED, 0, TYPE_IMM}, {0xffff,  0,  16,  0, 16, UNSIGNED, 0, TYPE_IMM},{0x001f00000000,  32,  0,  0, 5, UNSIGNED, 1, TYPE_REG},  {0}, {0}}},
@@ -223,7 +225,6 @@ const disass_insn_t instruction_list[] = {
     /*UNTESTED*/{ "snooze"   , N850_SNOOZE     ,    4, 0xfe00120  , 0xfe00120  , 0,   OP_TYPE_NOP, COND_NV, {{0}, {0}, {0}, {0}, {0}}},
     /*UNTESTED*/{ "stc.w"   , N850_STCW    ,    4, 0x7fffb7a  , 0x7E0037A  , 2,   OP_TYPE_MOV, COND_NV, {{0x0000f800,  11,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG_MEM}, {0}, {0}, {0}}},
     { "jmp"   , N850_JMPI     ,    6, 0x6ffffffeffff    , 0x6E000000000       , 2,   OP_TYPE_RJMP, COND_NV, {{0x001f00000000,  32,  0,  0, 5, UNSIGNED, 1, TYPE_REG_MEM}, {0xffff0000,  16,  0,  0, 16, UNSIGNED, 0, TYPE_MEM}, {0xffff,  0,  16,  0, 16, UNSIGNED, 0, TYPE_MEM}, {0}, {0}}},
-    { "mulhi"   , N850_MULHI     ,    4, 0xfeffffff  , 0x6e00000  , 3,   OP_TYPE_MUL, COND_NV, {{0xF8000000,  27,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x0000FFFF,  0,  0,  0, 16, UNSIGNED, 0, TYPE_IMM}, {0}, {0}}},
     // 2-byte Instructions
 //  { "name"  , enum         , size, mask      , static_mask  , n,   op_type    , cond   , {{field ,shr,shl,  +, size (in bits), sign, index, TYPE_REG}, ...}
     //{ "mov"   , N850_MOV   ,    2, 0x0000    , 2,   OP_TYPE_MOV, COND_NV, {{0xf800,  10,  0,  0, TYPE_REG}, {0x001f,  0,  0,  0, TYPE_REG}, {0}, {0}}},
@@ -395,32 +396,14 @@ void pretty_print(insn_t* insn){
     printf("\n");
 }
 
-int main() {
-    uint8_t test[] = {0x41,0x8a,0xdc,0x09};
+int main(int argc, char** argv) {
+    uint8_t test[] = {0xf9,0x07,0x9b,0xfe};
     pretty_print(disassemble(test));
     
     printf("=========================\n");
-    uint8_t test2[] = {0xdc,0x09};
+    uint8_t test2[] = {0xea,0x15};
     pretty_print(disassemble(test2));
-    printf("=========================\n");
-    uint8_t test3[] = {0x06,0xf6,0x06,0x00};
-    pretty_print(disassemble(test3));
-    printf("=========================\n");
-    uint8_t test4[] = {0x11,0x06,0x9c,0xff};
-    pretty_print(disassemble(test4));
-    printf("=========================\n");
-    uint8_t test5[] = {0x53,0x09};
-    pretty_print(disassemble(test5));
-    printf("=========================\n");
-    uint8_t test6[] = {0xc2,0x9e,0x63,0x00};
-    pretty_print(disassemble(test6));
-    printf("=========================\n");
-    uint8_t test7[] = {0x9e,0x0d,0x63,0x00};
-    pretty_print(disassemble(test7));
-    printf("=========================\n");
-    uint8_t test8[] = {0xe2,0x07,0x16,0xe3};
-    pretty_print(disassemble(test8));
     return 1;
 }
-
 */
+
