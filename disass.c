@@ -42,6 +42,13 @@ const disass_insn_t instruction_list[] = {
     { "cvtf.ws"   , N850_CVTFWS     ,    4, 0xFFE0FC42  , 0x07E00442 , 2,   OP_TYPE_MOV, COND_NV, {{0x0000f800,  11,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0xf8000000,  27,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0}, {0}, {0}}},
     { "loop"   , N850_LOOP    ,    4, 0x6FFFFFF  , 0x6E00001  , 2,   OP_TYPE_LOOP, COND_NZ, {{0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000fffe,  0,  0,  0, 16, UNSIGNED, 1, TYPE_LOOP}, {0}, {0}, {0}}},
     { "rie"   , N850_RIE ,    2, 0x0040    , 0x0040       , 0,   OP_TYPE_CMP, COND_NV, {{0}, {0}, {0}, {0}, {0}}},
+    { "adf"   , N850_ADF     ,    4, 0xFFFFFBBE  , 0x7E003A0  , 4,   OP_TYPE_MOV, COND_NV, {{0x0000f800,  11,  0,  0, 5, UNSIGNED, 3, TYPE_REG}, {0xf8000000,  27,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x0000001E,  1,  0,  0, 4, UNSIGNED, 0, TYPE_CCCC}, {0}}},  
+    { "setf"   , N850_SETF     ,    4, 0xffef0000  , 0x07e00000  , 2,   OP_TYPE_MOV, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x000f0000,  16,  0,  0, 4, UNSIGNED, 0, TYPE_CCCC}, {0}, {0}, {0}}},
+    { "shl"   , N850_SHLL     ,    4, 0xfffff8c2  , 0x07e000c2  , 3,   OP_TYPE_SHL, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000f800,  11,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0}, {0}}},
+    { "shr"   , N850_SHRL     ,    4, 0xffff0082  , 0x07e00082  , 3,   OP_TYPE_SHR, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000f800,  11,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0}, {0}}},
+    { "shl"   , N850_SHL     ,    4, 0xffff00c0  , 0x07e000c0  , 2,   OP_TYPE_SHL, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0}, {0}, {0}}},
+    { "jmp"   , N850_JMPI     ,    6, 0x6ffffffeffff    , 0x6E000000000       , 2,   OP_TYPE_RJMP, COND_NV, {{0x001f00000000,  32,  0,  0, 5, UNSIGNED, 1, TYPE_REG_MEM}, {0xffff0000,  16,  0,  0, 16, UNSIGNED, 0, TYPE_MEM}, {0xffff,  0,  16,  0, 16, UNSIGNED, 0, TYPE_MEM}, {0}, {0}}},
+
     { "mulhi"   , N850_MULHI     ,    4, 0xfeffffff  , 0x6e00000  , 3,   OP_TYPE_MUL, COND_NV, {{0xF8000000,  27,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x0000FFFF,  0,  0,  0, 16, UNSIGNED, 0, TYPE_IMM}, {0}, {0}}},
 
     
@@ -187,12 +194,14 @@ const disass_insn_t instruction_list[] = {
     
     { "sar"   , N850_SARR     ,    4, 0xfffff8a2  , 0x07e000a2  , 3,   OP_TYPE_SHR, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000f800,  11,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0}, {0}}},
     
+    
+
     /*UNTESTED*/{ "sasf"   , N850_SASF     ,    4, 0xffef0200  , 0x07e00200  , 2,   OP_TYPE_SHL, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x000f0000,  16,  0,  0, 4, UNSIGNED, 0, TYPE_CCCC}, {0}, {0}, {0}}},
     /*UNTESTED*/{ "satsubi"   , N850_SATSUBI     ,    4, 0xfe7fffff  , 0x6600000  , 3,   OP_TYPE_OR, COND_NV, {{0xF8000000,  27,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x0000FFFF,  0,  0,  0, 16, SIGNED, 0, TYPE_IMM}, {0}, {0}}},
     { "set1"   , N850_SET1     ,    4, 0x3fdfffff  , 0x7c00000  , 3,   OP_TYPE_AND, COND_NV, {{0x38000000,  27,  0,  0, 3, UNSIGNED, 0, TYPE_IMM}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 2, TYPE_REG_MEM}, {0x0000FFFF,  0,  0,  0, 16, SIGNED, 1, TYPE_MEM}, {0}, {0}}},
     /*UNTESTED*/{ "set1"   , N850_SET1R     ,    4, 0xffff00e0  , 0x07e000e0  , 2,   OP_TYPE_AND, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0}, {0}, {0}}},
-    { "setf"   , N850_SETF     ,    4, 0xffef0000  , 0x07e00000  , 2,   OP_TYPE_MOV, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x000f0000,  16,  0,  0, 4, UNSIGNED, 0, TYPE_CCCC}, {0}, {0}, {0}}},
-    { "shl"   , N850_SHL     ,    4, 0xffff00c0  , 0x07e000c0  , 2,   OP_TYPE_SHL, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0}, {0}, {0}}},
+    
+    
     { "shr"   , N850_SHR     ,    4, 0xffff0080  , 0x07e00080  , 2,   OP_TYPE_SHR, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0}, {0}, {0}}},
     { "shr"   , N850_SHRR     ,    4, 0xfffff882  , 0x07e00082  , 3,   OP_TYPE_SHR, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x00f800,  11,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0}, {0}}},
     { "st.b"   , N850_STB     ,    4, 0xff5fffff  , 0x7400000  , 3,   OP_TYPE_OR, COND_NV, {{0xF8000000,  27,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 2, TYPE_REG_MEM}, {0x0000FFFF,  0,  0,  0, 16, SIGNED, 1, TYPE_MEM}, {0}, {0}}},
@@ -224,7 +233,6 @@ const disass_insn_t instruction_list[] = {
     { "shr"   , N850_SHRL     ,    4, 0xffff0082  , 0x07e00082  , 3,   OP_TYPE_SHR, COND_NV, {{0xf8000000,  27,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG}, {0x0000f800,  11,  0,  0, 5, UNSIGNED, 2, TYPE_REG}, {0}, {0}}},
     /*UNTESTED*/{ "snooze"   , N850_SNOOZE     ,    4, 0xfe00120  , 0xfe00120  , 0,   OP_TYPE_NOP, COND_NV, {{0}, {0}, {0}, {0}, {0}}},
     /*UNTESTED*/{ "stc.w"   , N850_STCW    ,    4, 0x7fffb7a  , 0x7E0037A  , 2,   OP_TYPE_MOV, COND_NV, {{0x0000f800,  11,  0,  0, 5, UNSIGNED, 1, TYPE_REG}, {0x001f0000,  16,  0,  0, 5, UNSIGNED, 0, TYPE_REG_MEM}, {0}, {0}, {0}}},
-    { "jmp"   , N850_JMPI     ,    6, 0x6ffffffeffff    , 0x6E000000000       , 2,   OP_TYPE_RJMP, COND_NV, {{0x001f00000000,  32,  0,  0, 5, UNSIGNED, 1, TYPE_REG_MEM}, {0xffff0000,  16,  0,  0, 16, UNSIGNED, 0, TYPE_MEM}, {0xffff,  0,  16,  0, 16, UNSIGNED, 0, TYPE_MEM}, {0}, {0}}},
     // 2-byte Instructions
 //  { "name"  , enum         , size, mask      , static_mask  , n,   op_type    , cond   , {{field ,shr,shl,  +, size (in bits), sign, index, TYPE_REG}, ...}
     //{ "mov"   , N850_MOV   ,    2, 0x0000    , 2,   OP_TYPE_MOV, COND_NV, {{0xf800,  10,  0,  0, TYPE_REG}, {0x001f,  0,  0,  0, TYPE_REG}, {0}, {0}}},
