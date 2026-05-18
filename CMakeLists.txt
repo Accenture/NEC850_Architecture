@@ -21,10 +21,18 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.24)
-set(CMAKE_OSX_ARCHITECTURES "arm64")
+
 project(nec850_arch CXX C)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_OSX_ARCHITECTURES "arm64")
+
+add_library(${PROJECT_NAME} SHARED nec850.cpp disass.c )
+target_link_libraries(${PROJECT_NAME} PUBLIC binaryninjaapi)
+#set(CMAKE_CXX_STANDARD 20)
+set_target_properties(nec850_arch PROPERTIES
+    CXX_STANDARD 20
+	CXX_VISIBILITY_PRESET hidden
+	CXX_STANDARD_REQUIRED ON)
 
 set(HEADLESS 1)
 find_path(
@@ -36,8 +44,6 @@ find_path(
 )
 add_subdirectory(${BN_API_PATH} api)
 
-add_library(${PROJECT_NAME} SHARED nec850.cpp disass.c )
 
-target_link_libraries(${PROJECT_NAME} PUBLIC binaryninjaapi)
 
 bn_install_plugin(${PROJECT_NAME})
